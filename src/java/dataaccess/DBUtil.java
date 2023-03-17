@@ -1,32 +1,18 @@
 
 package dataaccess;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 /**
  *
  * @author Majid
  */
-public class DBUtil {
-    public static void closePreparedStatement(Statement ps) {
-        try {
-            if (ps != null) {
-                ps.close();
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
-    public static void closeResultSet(ResultSet rs) {
-        try {
-            if (rs != null) {
-                rs.close();
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
+public class DBUtil {
+    private static final EntityManagerFactory emf =
+        Persistence.createEntityManagerFactory("UsersPU");
+
+    public static EntityManagerFactory getEmFactory() {
+        return emf;
     }
 }
