@@ -104,7 +104,7 @@ public class UserServlet extends HttpServlet {
                                 getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
                             }
                         }
-                        us.insert(email, first, last, pw, rs.get(roleId));
+                        us.insert(email, first, last, pw, roleId);
                         request.setAttribute("message", "add");
                         break;
                     case "update":
@@ -114,7 +114,7 @@ public class UserServlet extends HttpServlet {
                            roleId = 2;
                         }
                         
-                        us.update(email, first, last, pw, rs.get(roleId));
+                        us.update(email, first, last, pw, roleId);
                         request.setAttribute("message", "update");
                         break;
                 }

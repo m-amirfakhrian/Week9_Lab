@@ -60,13 +60,14 @@ public class UserDB {
         }
     }
 
-    public void update(User user) throws Exception {
+    
+    public void update(User updateUser) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
 
         try {
             trans.begin();
-            em.merge(user);
+            em.merge(updateUser);
             trans.commit();
         } catch (Exception ex) {
             trans.rollback();
@@ -75,14 +76,26 @@ public class UserDB {
         }
     }
 
-    public void delete(User user) throws Exception {
-         EntityManager em = DBUtil.getEmFactory().createEntityManager();
+    public User getUser(String email) throws Exception {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+
+        try {
+            User user = em.find(User.class, email);
+            //System.out.println("First name: " + user.getFirstName());
+            return user;
+        } finally {
+            em.close();
+        }
+    }
+
+    public void delete(String deleteUser) throws Exception {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
 
         try {
-            User userInDB = em.find(User.class, user);
+            User userToDelete = em.find(User.class, deleteUser);
             trans.begin();
-            em.remove(em.merge(userInDB));
+            em.remove(em.merge(userToDelete));
             trans.commit();
         } catch (Exception ex) {
             trans.rollback();
@@ -90,5 +103,4 @@ public class UserDB {
             em.close();
         }
     }
-
 }

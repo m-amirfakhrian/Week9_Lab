@@ -1,6 +1,7 @@
 
 package services;
 
+import dataaccess.RoleDB;
 import dataaccess.UserDB;
 import java.util.List;
 import models.Role;
@@ -26,23 +27,27 @@ public class UserService {
         return users;
     }
 
-    public void insert(String email, String firstName, String lastName, String password, Role role) throws Exception {
-        User user = new User(email, firstName, lastName, password, role);
-        UserDB userDB = new UserDB();
-        userDB.insert(user);
+    public void insert(String email, String first_name, String last_name, String password, int role) throws Exception {
+       User newUser = new User(email, first_name, last_name, password);
+        RoleDB roleDB = new RoleDB();
+        Role roleName = roleDB.get(role);
+        newUser.setRole(roleName);
+        UserDB newUserDB = new UserDB();
+        newUserDB.insert(newUser);
     }
 
-    //param from the servlet
-    public void update(String email, String firstName, String lastName, String password, Role role) throws Exception {
-        User user = new User(email, firstName, lastName, password, role);
-        UserDB userDB = new UserDB();
-        userDB.update(user);
+    public void update(String email, String first_name, String last_name, String password, int role) throws Exception {
+        User updateUser = new User(email, first_name, last_name, password);
+        RoleDB roleDB = new RoleDB();
+        Role roleName = roleDB.get(role);
+        updateUser.setRole(roleName);
+        UserDB updateUserDB = new UserDB();
+        updateUserDB.update(updateUser);
     }
 
     public void delete(String email) throws Exception {
-        User user = new User();
-        user.setEmail(email);
-        UserDB userDB = new UserDB();
-        userDB.delete(user);
+        UserDB deleteUserDB = new UserDB();
+        deleteUserDB.delete(email);
     }
-}
+    }
+

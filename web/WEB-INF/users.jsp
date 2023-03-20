@@ -39,7 +39,7 @@
                         <td><c:out value="${user.email}"  /></td>
                         <td><c:out value="${user.firstName}"  /></td>
                         <td><c:out value="${user.lastName}"  /></td>
-                        <td><c:out value="${user.role.name}"  /></td>
+                        <td><c:out value="${user.role.roleName}"  /></td>
                         <td><input type="hidden" name="action" value="edit">
                             <a href="<c:url value='/users?action=edit&amp;'>
                                    <c:param name='email' value='${user.email}'/>  
@@ -151,7 +151,7 @@
                         <td>
                              <select name="role">                  
                     <c:choose>
-                        <c:when test="${selectedUser.role.getId() == 1}" >                                  
+                        <c:when test="${selectedUser.role.getRoleId() == 1}" >                                  
                             <option>system admin</option> 
                             <option>regular user</option>
                         </c:when>
